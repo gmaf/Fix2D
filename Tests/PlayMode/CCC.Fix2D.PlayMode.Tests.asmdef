@@ -1,0 +1,30 @@
+{
+    "name": "CCC.Fix2D.PlayMode.Tests",
+    "references": [
+        "CCC.Fix2D",
+        "Unity.Burst",
+        "Unity.Transforms",
+        "Unity.Entities",
+        "Unity.Jobs",
+        "Unity.Mathematics",
+        "Unity.Mathematics.Extensions",
+        "Unity.Collections",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "UnityX.FixMath"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS",
+        "ENABLE_UNITY_COLLECTIONS_CHECKS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

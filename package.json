@@ -1,0 +1,19 @@
+{
+  "displayName": "Fix 2D",
+  "name": "com.ccc-development.fix2d",
+  "unity": "2020.1",
+  "version": "0.1.0",
+  "dependencies": {
+    "com.unity.entities": "0.16.0-preview.21"
+  },
+  "description": "Fix 2D is a deterministic 2D physics library based on Unity's DOTS Physics implementation and Box2D.",
+  "upmCi": {
+    "footprint": "6f3fa045137502f5803df12885aba2c49002c4fe"
+  },
+  "repository": {
+    "url": "https://github.cds.internal.unity3d.com/unity/2d.git",
+    "type": "git",
+    "revision": "c75111a4af0cdb1e642bf6cec47bd92699247405"
+  },
+  "type": "library"
+}

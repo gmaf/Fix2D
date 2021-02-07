@@ -1,0 +1,28 @@
+{
+    "name": "CCC.Fix2D.Authoring.Editor",
+    "references": [
+        "CCC.Fix2D",
+        "CCC.Fix2D.Authoring",
+        "Unity.Burst",
+        "Unity.Collections",
+        "Unity.Entities",
+        "Unity.Entities.Hybrid",
+        "Unity.Jobs",
+        "Unity.Mathematics",
+        "Unity.Transforms",
+        "UnityEngineX",
+        "UnityEditorX",
+        "UnityX.FixMath"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
