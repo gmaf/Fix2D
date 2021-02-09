@@ -59,7 +59,7 @@ namespace CCC.Fix2D.Authoring
                         {
                             Vertex0 = new float3(localToWorld.MultiplyPoint(vertex0)).xy,
                             Vertex1 = new float3(localToWorld.MultiplyPoint(vertex1)).xy,
-                            Radius = math.max(PhysicsSettings.Constants.MinimumConvexRadius, math.cmax(lossyScale) * radius),
+                            Radius = math.max(PhysicsStepSettings.Constants.MinimumConvexRadius, math.cmax(lossyScale) * radius),
                         };
 
                         var colliderBlob = Collider.Create(

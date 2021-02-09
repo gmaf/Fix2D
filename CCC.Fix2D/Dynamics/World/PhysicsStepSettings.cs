@@ -1,19 +1,20 @@
 ﻿using System;
+using Unity.Entities;
 using Unity.Mathematics;
 
 namespace CCC.Fix2D
 {
     [Serializable]
-    public struct PhysicsSettings
+    public struct PhysicsStepSettings : IComponentData
     {
-        public static PhysicsSettings Default => new PhysicsSettings
+        public static PhysicsStepSettings Default => new PhysicsStepSettings
         {
             Gravity = new float2(0.0f, -9.81f),
-            AabbInflation = 0.1f,
             NumberOfThreadsHint = 8,
             SimulationType = SimulationType.Default,
             NumSolverIterations = 4,
             SynchronizeCollisionWorld = false,
+            TimeStep = 1 / 60f,
             SolverStabilizationHeuristicSettings = Solver.StabilizationHeuristicSettings.Default
         };
 
@@ -26,12 +27,11 @@ namespace CCC.Fix2D
         // World gravity.
         public float2 Gravity;
 
-        // Expands the Aabb when building the bounding area hierarchy tree.
-        public float AabbInflation;
+        public float TimeStep;
 
         // The number of available threads.
         public int NumberOfThreadsHint;
-        
+
         // The type of simulation to be used when simulating this physics world.
         public SimulationType SimulationType;
 
@@ -61,11 +61,11 @@ namespace CCC.Fix2D
             if (math.any(!math.isfinite(Gravity)))
                 Gravity = defaultSettings.Gravity;
 
-            if (!math.isfinite(AabbInflation))
-                AabbInflation = defaultSettings.AabbInflation;
-
             if (NumberOfThreadsHint < 0)
                 NumberOfThreadsHint = defaultSettings.NumberOfThreadsHint;
+
+            if (TimeStep < 0)
+                TimeStep = 0f;
         }
     }
 }

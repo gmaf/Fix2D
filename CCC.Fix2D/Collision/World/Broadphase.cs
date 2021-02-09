@@ -957,7 +957,7 @@ namespace CCC.Fix2D
 
         internal JobHandle ScheduleBuildJobs(ref PhysicsWorld world, NativeArray<int> buildStaticTree, JobHandle inputDeps)
         {
-            if (world.Settings.NumberOfThreadsHint <= 0)
+            if (world.StepSettings.NumberOfThreadsHint <= 0)
             {
                 return new BuildBroadphaseJob
                 {
@@ -965,9 +965,9 @@ namespace CCC.Fix2D
                     DynamicBodies = world.DynamicBodies,
                     MotionDatas = world.BodyMotionData,
                     MotionVelocities = world.BodyMotionVelocity,
-                    CollisionTolerance = PhysicsSettings.Constants.CollisionTolerance,
-                    TimeStep = world.TimeStep,
-                    Gravity = world.Settings.Gravity,
+                    CollisionTolerance = PhysicsStepSettings.Constants.CollisionTolerance,
+                    TimeStep = world.StepSettings.TimeStep,
+                    Gravity = world.StepSettings.Gravity,
                     BuildStaticTree = buildStaticTree,
                     Broadphase = this
 
@@ -1010,14 +1010,14 @@ namespace CCC.Fix2D
                 Aabbs = aabbs,
                 Points = points,
                 FiltersOut = m_StaticTree.BodyFilters,
-                AabbMargin = PhysicsSettings.Constants.CollisionTolerance * 0.5f, // each body contributes half
+                AabbMargin = PhysicsStepSettings.Constants.CollisionTolerance * 0.5f, // each body contributes half
 
             }.ScheduleUnsafeIndex0(staticBodyCountArray, 32, handle);
 
             handle = JobHandle.CombineDependencies(staticBodyDataJobHandle, staticBodyCountArray.Dispose(handle));
 
             return m_StaticTree.BoundingVolumeHierarchy.ScheduleBuildJobs(
-                points, aabbs, m_StaticTree.BodyFilters, shouldDoWork, world.Settings.NumberOfThreadsHint, handle,
+                points, aabbs, m_StaticTree.BodyFilters, shouldDoWork, world.StepSettings.NumberOfThreadsHint, handle,
                 m_StaticTree.Nodes.Length, m_StaticTree.Ranges, m_StaticTree.BranchCount);
         }
 
@@ -1040,9 +1040,9 @@ namespace CCC.Fix2D
                 Aabbs = aabbs,
                 Points = points,
                 FiltersOut = m_DynamicTree.BodyFilters,
-                AabbMargin = PhysicsSettings.Constants.CollisionTolerance * 0.5f, // each body contributes half
-                TimeStep = world.TimeStep,
-                Gravity = world.Settings.Gravity
+                AabbMargin = PhysicsStepSettings.Constants.CollisionTolerance * 0.5f, // each body contributes half
+                TimeStep = world.StepSettings.TimeStep,
+                Gravity = world.StepSettings.Gravity
 
             }.Schedule(world.DynamicBodyCount, 32, inputDeps);
 
@@ -1050,7 +1050,7 @@ namespace CCC.Fix2D
             shouldDoWork[0] = 1;
 
             handle = m_DynamicTree.BoundingVolumeHierarchy.ScheduleBuildJobs(
-                points, aabbs, m_DynamicTree.BodyFilters, shouldDoWork, world.Settings.NumberOfThreadsHint, handle,
+                points, aabbs, m_DynamicTree.BodyFilters, shouldDoWork, world.StepSettings.NumberOfThreadsHint, handle,
                 m_DynamicTree.Nodes.Length, m_DynamicTree.Ranges, m_DynamicTree.BranchCount);
 
             return shouldDoWork.Dispose(handle);

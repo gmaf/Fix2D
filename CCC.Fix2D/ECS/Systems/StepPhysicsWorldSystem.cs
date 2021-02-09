@@ -71,7 +71,7 @@ namespace CCC.Fix2D
             var physicsCallbacks = m_PhysicsWorldSystem.Callbacks;
             
             // Set the simulation type.
-            SimulationType = physicsWorld.Settings.SimulationType;
+            SimulationType = physicsWorld.StepSettings.SimulationType;
 
             // Yes, so set up the dependencies.
             var handle = JobHandle.CombineDependencies(m_PhysicsWorldSystem.FinalJobHandle, Dependency);

@@ -173,20 +173,20 @@ namespace CCC.Fix2D
             }
 
             // Update broadphase
-            var aabbMargin = PhysicsSettings.Constants.CollisionTolerance * 0.5f;
-            Broadphase.BuildDynamicTree(world.DynamicBodies, world.BodyMotionData, world.BodyMotionVelocity, world.Settings.Gravity, world.TimeStep, aabbMargin);
+            var aabbMargin = PhysicsStepSettings.Constants.CollisionTolerance * 0.5f;
+            Broadphase.BuildDynamicTree(world.DynamicBodies, world.BodyMotionData, world.BodyMotionVelocity, world.StepSettings.Gravity, world.StepSettings.TimeStep, aabbMargin);
         }
 
         // Schedule a set of jobs to synchronize the collision world with the dynamics world.
         internal JobHandle ScheduleUpdateDynamicTree(ref PhysicsWorld world, JobHandle inputDeps)
         {
-            if (world.Settings.NumberOfThreadsHint <= 1)
+            if (world.StepSettings.NumberOfThreadsHint <= 1)
             {
                 return new UpdateDynamicLayerJob
                 {
                     World = world,
-                    TimeStep = world.TimeStep,
-                    Gravity = world.Settings.Gravity
+                    TimeStep = world.StepSettings.TimeStep,
+                    Gravity = world.StepSettings.Gravity
 
                 }.Schedule(inputDeps);
             }

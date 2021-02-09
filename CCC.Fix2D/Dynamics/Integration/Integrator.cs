@@ -13,7 +13,7 @@ namespace CCC.Fix2D
             {
                 BodyMotionData = physicsWorld.BodyMotionData,
                 BodyMotionVelocity = physicsWorld.BodyMotionVelocity,
-                TimeStep = physicsWorld.TimeStep,
+                TimeStep = physicsWorld.StepSettings.TimeStep,
             };
             return job.Schedule(physicsWorld.DynamicsWorld.BodyMotionCount, 64, inputDeps);
         }

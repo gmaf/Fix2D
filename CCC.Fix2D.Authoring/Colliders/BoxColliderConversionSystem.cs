@@ -38,7 +38,7 @@ namespace CCC.Fix2D.Authoring
                             Center = new float3(localToWorld.MultiplyPoint(collider.offset)).xy,
                             Size = new float2(size.x * lossyScale.x, size.y * lossyScale.y),
                             Angle = PhysicsMath.ZRotationFromQuaternion(localToWorld.rotation),
-                            BevelRadius = math.max(collider.edgeRadius, PhysicsSettings.Constants.MinimumConvexRadius),
+                            BevelRadius = math.max(collider.edgeRadius, PhysicsStepSettings.Constants.MinimumConvexRadius),
                         };
 
                         geometry.Validate();
@@ -78,7 +78,7 @@ namespace CCC.Fix2D.Authoring
                             Center = new float3(localToWorld.MultiplyPoint(collider.BoxAndCircleOffset)).xy,
                             Size = new float2(size.x * localScale.x, size.y * localScale.y),
                             Angle = PhysicsMath.ZRotationFromQuaternion(localToWorld.rotation),
-                            BevelRadius = PhysicsSettings.Constants.MinimumConvexRadius /*math.max(collider.edgeRadius, PhysicsSettings.Constants.MinimumConvexRadius)*/,
+                            BevelRadius = PhysicsStepSettings.Constants.MinimumConvexRadius /*math.max(collider.edgeRadius, PhysicsSettings.Constants.MinimumConvexRadius)*/,
                         };
 
                         geometry.Validate();

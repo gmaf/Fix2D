@@ -290,7 +290,7 @@ namespace CCC.Fix2D
             Simplex.VertexIndexTriple saveB;
 
             var iteration = 0;
-            while (iteration < PhysicsSettings.Constants.MaxGJKInterations)
+            while (iteration < PhysicsStepSettings.Constants.MaxGJKInterations)
             {
                 // Copy simplex so we can identify duplicates.
                 var saveCount = simplex.Count;

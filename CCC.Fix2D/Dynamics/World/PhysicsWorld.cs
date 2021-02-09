@@ -7,8 +7,7 @@ namespace CCC.Fix2D
     {
         public CollisionWorld CollisionWorld;
         public DynamicsWorld DynamicsWorld;
-        public PhysicsSettings Settings;
-        public float TimeStep;
+        public PhysicsStepSettings StepSettings;
 
         public int StaticBodyCount => CollisionWorld.StaticBodyCount;
         public int DynamicBodyCount => CollisionWorld.DynamicBodyCount;
@@ -27,8 +26,7 @@ namespace CCC.Fix2D
         {
             CollisionWorld = new CollisionWorld(staticBodyCount : staticBodyCount, dynamicBodyCount : dynamicBodyCount);
             DynamicsWorld = new DynamicsWorld(bodyMotionCount : dynamicBodyCount, jointCount : jointCount);
-            Settings = PhysicsSettings.Default;
-            TimeStep = 1 / 60.0f;
+            StepSettings = PhysicsStepSettings.Default;
         }
 
         public void Reset(int staticBodyCount, int dynamicBodyCount, int jointCount)
@@ -117,8 +115,7 @@ namespace CCC.Fix2D
             {
                 CollisionWorld = CollisionWorld.Clone(),
                 DynamicsWorld = DynamicsWorld.Clone(),
-                Settings = Settings,
-                TimeStep = TimeStep
+                StepSettings = StepSettings
             };
         }
 

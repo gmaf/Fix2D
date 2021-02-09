@@ -151,14 +151,11 @@ namespace CCC.Fix2D
             m_EndFramePhysicsSystem.FinalJobHandle.Complete();
 
             // Update the physics world settings we have a component assigned.
-            if (HasSingleton<PhysicsSettingsComponent>())
+            if (HasSingleton<PhysicsStepSettings>())
             {
-                PhysicsWorld.Settings = GetSingleton<PhysicsSettingsComponent>().Value;
-                PhysicsWorld.Settings.Validate();
+                PhysicsWorld.StepSettings = GetSingleton<PhysicsStepSettings>();
+                PhysicsWorld.StepSettings.Validate();
             }
-
-            // Set the component system delta-time.
-            PhysicsWorld.TimeStep = Time.DeltaTime;
 
             // Schedule phase callback.
             var inputDeps = Callbacks.ScheduleCallbacksForPhase(PhysicsCallbacks.Phase.PreBuild, ref PhysicsWorld, Dependency);

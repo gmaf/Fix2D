@@ -24,15 +24,15 @@ namespace CCC.Fix2D
         // Schedule all the jobs for the simulation step.
         public unsafe SimulationJobHandles ScheduleStepJobs(PhysicsWorld world, PhysicsCallbacks physicsCallbacks, JobHandle inputDeps)
         {
-            PhysicsSettings settings = world.Settings;
+            PhysicsStepSettings settings = world.StepSettings;
             bool singleThreadedSim = (settings.NumberOfThreadsHint <= 0);
 
-            SafetyChecks.IsFalse(world.TimeStep < 0f);
+            SafetyChecks.IsFalse(world.StepSettings.TimeStep < 0f);
 
             StepContext = new StepContext();
 
             SimulationContext.Reset(ref world);
-            SimulationContext.TimeStep = world.TimeStep;
+            SimulationContext.TimeStep = world.StepSettings.TimeStep;
 
             if (world.DynamicBodyCount == 0)
             {
@@ -75,7 +75,7 @@ namespace CCC.Fix2D
             ////////////////////////////////////////////////////////////////////////////////////////
             // Apply gravity and copy input velocities at this point (in parallel with the scheduler, but before the callbacks)
             handle = Solver.ScheduleApplyGravityAndCopyInputVelocitiesJob(
-                ref world.DynamicsWorld, SimulationContext.InputVelocities, world.TimeStep * settings.Gravity, handle, settings.NumberOfThreadsHint);
+                ref world.DynamicsWorld, SimulationContext.InputVelocities, settings.TimeStep * settings.Gravity, handle, settings.NumberOfThreadsHint);
             handle = physicsCallbacks.ScheduleCallbacksForPhase(PhysicsCallbacks.Phase.PostCreateOverlapBodies, ref world, handle);
 
 
@@ -84,7 +84,7 @@ namespace CCC.Fix2D
             ////////////////////////////////////////////////////////////////////////////////////////
 
             // Create contact points & joint Jacobians
-            handles = NarrowPhase.ScheduleCreateContactsJobs(ref world, world.TimeStep,
+            handles = NarrowPhase.ScheduleCreateContactsJobs(ref world, settings.TimeStep,
                 ref StepContext.Contacts, ref StepContext.Jacobians, ref StepContext.PhasedDispatchPairs, handle,
                 ref StepContext.SolverSchedulerInfo, settings.NumberOfThreadsHint);
             handle = handles.FinalExecutionHandle;
@@ -101,7 +101,7 @@ namespace CCC.Fix2D
             ////////////////////////////////////////////////////////////////////////////////////////
             //      Create Contact Jacobians
             ////////////////////////////////////////////////////////////////////////////////////////
-            handles = Solver.ScheduleBuildJacobiansJobs(ref world, world.TimeStep, settings.Gravity, settings.NumSolverIterations,
+            handles = Solver.ScheduleBuildJacobiansJobs(ref world, settings.TimeStep, settings.Gravity, settings.NumSolverIterations,
                 handle, ref StepContext.PhasedDispatchPairs, ref StepContext.SolverSchedulerInfo,
                 ref StepContext.Contacts, ref StepContext.Jacobians, settings.NumberOfThreadsHint);
             handle = handles.FinalExecutionHandle;
@@ -117,7 +117,7 @@ namespace CCC.Fix2D
             //      Solve all Jacobians
             ////////////////////////////////////////////////////////////////////////////////////////
             Solver.StabilizationData solverStabilizationData = new Solver.StabilizationData(settings.SolverStabilizationHeuristicSettings, settings.Gravity, SimulationContext);
-            handles = Solver.ScheduleSolveJacobiansJobs(ref world.DynamicsWorld, world.TimeStep, settings.NumSolverIterations,
+            handles = Solver.ScheduleSolveJacobiansJobs(ref world.DynamicsWorld, settings.TimeStep, settings.NumSolverIterations,
                 ref StepContext.Jacobians, ref SimulationContext.CollisionEventDataStream, ref SimulationContext.TriggerEventDataStream,
                 ref StepContext.SolverSchedulerInfo, solverStabilizationData, handle, settings.NumberOfThreadsHint);
             handle = handles.FinalExecutionHandle;
@@ -244,7 +244,7 @@ namespace CCC.Fix2D
             }
 
             // Solver stabilization data
-            if (world.Settings.SolverStabilizationHeuristicSettings.EnableSolverStabilization)
+            if (world.StepSettings.SolverStabilizationHeuristicSettings.EnableSolverStabilization)
             {
                 if (!m_SolverStabilizationMotionData.IsCreated || m_SolverStabilizationMotionData.Length < _dynamicBodyCount)
                 {

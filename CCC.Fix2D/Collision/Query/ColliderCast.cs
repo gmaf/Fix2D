@@ -132,12 +132,12 @@ namespace CCC.Fix2D
             var v = supportTarget - supportSource;
 
             // Sigma is the target distance between polygons
-            var sigma = math.max(PhysicsSettings.Constants.MinimumConvexRadius, totalRadius - PhysicsSettings.Constants.MinimumConvexRadius);
-            const float tolerance = PhysicsSettings.Constants.LinearSlop * 0.5f;
+            var sigma = math.max(PhysicsStepSettings.Constants.MinimumConvexRadius, totalRadius - PhysicsStepSettings.Constants.MinimumConvexRadius);
+            const float tolerance = PhysicsStepSettings.Constants.LinearSlop * 0.5f;
     
             var iteration = 0;
             while (
-                iteration++ < PhysicsSettings.Constants.MaxGJKInterations &&
+                iteration++ < PhysicsStepSettings.Constants.MaxGJKInterations &&
                 math.abs(math.length(v) - sigma) > tolerance
                 )
             {

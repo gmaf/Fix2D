@@ -55,7 +55,7 @@ namespace CCC.Fix2D.Authoring
                         var geometry = new PolygonGeometry
                         {
                             Vertices = vertices,
-                            BevelRadius = PhysicsSettings.Constants.MinimumConvexRadius,
+                            BevelRadius = PhysicsStepSettings.Constants.MinimumConvexRadius,
                         };
 
                         var colliderBlob = Collider.Create(
@@ -108,7 +108,7 @@ namespace CCC.Fix2D.Authoring
                         var geometry = new PolygonGeometry
                         {
                             Vertices = vertices,
-                            BevelRadius = PhysicsSettings.Constants.MinimumConvexRadius,
+                            BevelRadius = PhysicsStepSettings.Constants.MinimumConvexRadius,
                         };
 
                         var colliderBlob = Collider.Create(

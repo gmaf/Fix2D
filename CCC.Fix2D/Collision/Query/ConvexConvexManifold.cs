@@ -297,7 +297,7 @@ namespace CCC.Fix2D
 
             var worldFromB = mul(worldFromA, aFromB);
 
-            const float k_tol = 0.1f * (0.005f /*b2_linearSlop*/);
+            const float k_tol = 0.1f * PhysicsStepSettings.Constants.LinearSlop;
 
             if (separationB > separationA + k_tol)
             {

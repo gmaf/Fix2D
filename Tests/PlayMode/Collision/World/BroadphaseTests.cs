@@ -93,9 +93,9 @@ namespace CCC.Fix2D.Tests
                 physicsWorld.DynamicBodies,
                 physicsWorld.BodyMotionData,
                 physicsWorld.BodyMotionVelocity,
-                PhysicsSettings.Constants.CollisionTolerance,
-                physicsWorld.TimeStep,
-                physicsWorld.Settings.Gravity);
+                PhysicsStepSettings.Constants.CollisionTolerance,
+                physicsWorld.StepSettings.TimeStep,
+                physicsWorld.StepSettings.Gravity);
 
             physicsWorld.Dispose();
         }
@@ -121,9 +121,9 @@ namespace CCC.Fix2D.Tests
                 physicsWorld.DynamicBodies,
                 physicsWorld.BodyMotionData,
                 physicsWorld.BodyMotionVelocity,
-                PhysicsSettings.Constants.CollisionTolerance,
-                physicsWorld.TimeStep,
-                physicsWorld.Settings.Gravity);
+                PhysicsStepSettings.Constants.CollisionTolerance,
+                physicsWorld.StepSettings.TimeStep,
+                physicsWorld.StepSettings.Gravity);
 
             physicsWorld.Dispose();
         }
