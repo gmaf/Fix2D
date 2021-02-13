@@ -15,7 +15,7 @@ namespace CCC.Fix2D
             if (systemGroup is null)
                 throw new ArgumentNullException(nameof(systemGroup));
 
-            var physicsGroup = world.CreateSystem<PhysicsSystemGroup>();
+            var physicsGroup = world.GetOrCreateSystem<PhysicsSystemGroup>();
 
             List<Type> sysTypes = new List<Type>
             {
@@ -38,7 +38,11 @@ namespace CCC.Fix2D
 
             for (int i = 0; i < sysTypes.Count; i++)
             {
-                physicsGroup.AddSystemToUpdateList(world.CreateSystem(sysTypes[i]));
+                // create
+                var sys = world.CreateSystem(sysTypes[i]);
+
+                // add to update list
+                physicsGroup.AddSystemToUpdateList(sys);
             }
 
             systemGroup.AddSystemToUpdateList(physicsGroup);

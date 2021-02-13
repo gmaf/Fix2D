@@ -10,7 +10,7 @@ namespace CCC.Fix2D.Authoring
     sealed class PhysicsSettingsAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     {
         [Tooltip("The Gravity applied to any Dynamic Physics Body.")]
-        public float2 Gravity = new float2(0f, -9.81f);
+        public fix2 Gravity = new fix2(0, (fix)(-9.81f));
 
         [Range(0, 128)]
         [Tooltip("The number of available threads that the Physics System can use.")]
@@ -24,7 +24,7 @@ namespace CCC.Fix2D.Authoring
             dstManager.AddComponentData(entity,
                 new PhysicsStepSettings
                 {
-                    Gravity = Gravity,
+                    Gravity = new float2((float)Gravity.x, (float)Gravity.y),
                     NumberOfThreadsHint = NumberOfThreadsHint,
                     SimulationType = SimulationType
                 }
