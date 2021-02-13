@@ -24,8 +24,6 @@ namespace CCC.Fix2D
                 return new PhysicsMass
                 {
                     InverseMass = math.rcp(mass),
-                    //InverseInertia = math.rcp(massProperties.MassDistribution.InertiaTensor * mass),
-                    //InverseInertia = math.rcp(massProperties.MassDistribution.InertiaTensor * mass * (mass / massProperties.Area)),
                     InverseInertia = math.rcp(massProperties.MassDistribution.InertiaTensor * (mass / massProperties.Area)),
                     LocalCenterOfMass = massProperties.MassDistribution.LocalCenterOfMass,
                 };

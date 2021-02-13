@@ -13,6 +13,7 @@ class ClassicRigidbodyConversionTests : AuthoringTestFixture
     public void DynamicRigidbody_ConversionTest()
     {
         var expectedMass = 7f;
+        var expectedInertia = expectedMass * 1f;
         var expectedLinearVelocity = new float2(5f, -3f);
         var expectedAngularVelocity = 4f;
         var expectedLinearDamping = 0.6f;
@@ -61,7 +62,7 @@ class ClassicRigidbodyConversionTests : AuthoringTestFixture
 
                     Assert.AreEqual(expectedMass, mass.GetMass(), Epsilon);
                     PhysicsAssert.AreEqual(new float2(0f), mass.LocalCenterOfMass, Epsilon);
-                    Assert.AreEqual(1f, mass.GetInertia(), Epsilon);
+                    Assert.AreEqual(expectedInertia, mass.GetInertia(), Epsilon);
                 }
 
                 // Velocity.
