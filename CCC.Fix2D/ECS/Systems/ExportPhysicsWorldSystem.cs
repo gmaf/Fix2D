@@ -4,11 +4,13 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine;
 
 namespace CCC.Fix2D
 {
     [UpdateInGroup(typeof(PhysicsSystemGroup))]
     [UpdateAfter(typeof(StepPhysicsWorldSystem)), UpdateBefore(typeof(EndFramePhysicsSystem))]
+    [AlwaysUpdateSystem]
     public class ExportPhysicsWorldSystem : SystemBase
     {
         public JobHandle FinalJobHandle { get; private set; }
@@ -28,6 +30,7 @@ namespace CCC.Fix2D
 
         protected override void OnUpdate()
         {
+            //Debug.Log("Run : " + this);
             var handle = JobHandle.CombineDependencies(m_StepPhysicsWorldSystem.FinalSimulationJobHandle, Dependency);
 
             ref var world = ref m_PhysicsWorldSystem.PhysicsWorld;
@@ -78,8 +81,8 @@ namespace CCC.Fix2D
                     chunkRotations[i] = new FixRotation { Value = (fix)motionData.WorldAngle };
                     chunkVelocities[i] = new PhysicsVelocity
                     {
-                        Linear = motionVelocity.LinearVelocity,
-                        Angular = motionVelocity.AngularVelocity
+                        Linear = new fix2((fix)motionVelocity.LinearVelocity.x, (fix)motionVelocity.LinearVelocity.y),
+                        Angular = (fix)motionVelocity.AngularVelocity
                     };
                 }
             }

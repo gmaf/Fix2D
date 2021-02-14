@@ -402,8 +402,8 @@ namespace CCC.Fix2D
                 // Make a copy
                 inputVelocities[index] = new PhysicsVelocity
                 {
-                    Linear = motionVelocity.LinearVelocity,
-                    Angular = motionVelocity.AngularVelocity
+                    LinearFloat = motionVelocity.LinearVelocity,
+                    AngularFloat = motionVelocity.AngularVelocity
                 };
             }
         }

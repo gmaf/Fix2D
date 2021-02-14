@@ -10,7 +10,7 @@ using UnityEditor;
 
 namespace CCC.Fix2D.Authoring
 {
-    public class PhysicsBodyAuth : MonoBehaviour//, IConvertGameObjectToEntity
+    public class PhysicsBodyAuth : MonoBehaviour
     {
         public enum ColliderShape
         {
@@ -34,6 +34,7 @@ namespace CCC.Fix2D.Authoring
         public float AngularDrag = 0.05f;
         public float GravityScale = 1;
         public bool FireEvents = false;
+        public bool FreezeRotation = false;
 
         // Box
         public Vector2 BoxSize = Vector2.one;
@@ -46,55 +47,6 @@ namespace CCC.Fix2D.Authoring
 
         // Polygon
         public List<Vector2> PolygonPoints = new List<Vector2>();
-
-        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
-        {
-            //// for now, to save time, fall back to existing conversion systems by adding RigidBody2D + colliders
-            //Rigidbody2D rigidbody = GetComponent<Rigidbody2D>() ?? gameObject.AddComponent<Rigidbody2D>();
-
-            //Collider2D collider2D;
-
-            //switch (Shape)
-            //{
-            //    default:
-            //    case ColliderShape.Circle:
-            //    {
-            //        CircleCollider2D circle = GetComponent<CircleCollider2D>() ?? gameObject.AddComponent<CircleCollider2D>();
-            //        circle.radius = circle.radius;
-            //        collider2D = circle;
-            //        break;
-            //    }
-            //    case ColliderShape.Box:
-            //    {
-            //        BoxCollider2D box = GetComponent<BoxCollider2D>() ?? gameObject.AddComponent<BoxCollider2D>();
-            //        box.size = BoxSize;
-            //        collider2D = box;
-            //        break;
-            //    }
-            //    case ColliderShape.Polygon:
-            //    {
-            //        PolygonCollider2D polygon = GetComponent<PolygonCollider2D>() ?? gameObject.AddComponent<PolygonCollider2D>();
-            //        polygon.points = PolygonPoints.ToArray();
-            //        collider2D = polygon;
-            //        break;
-            //    }
-            //}
-
-            //collider2D.isTrigger = IsTrigger;
-            //switch (Type)
-            //{
-            //    default:
-            //    case BodyType.Static:
-            //        rigidbody.bodyType = RigidbodyType2D.Static;
-            //        break;
-            //    case BodyType.Kinematic:
-            //        rigidbody.bodyType = RigidbodyType2D.Kinematic;
-            //        break;
-            //    case BodyType.Dynamic:
-            //        rigidbody.bodyType = RigidbodyType2D.Dynamic;
-            //        break;
-            //}
-        }
 
         private void OnDrawGizmosSelected()
         {
@@ -175,6 +127,7 @@ namespace CCC.Fix2D.Authoring.Editor
         private SerializedProperty _propColliderOffset;
         private SerializedProperty _propCircleRadius;
         private SerializedProperty _propPolygonPoints;
+        private SerializedProperty _freezeRotation;
 
         private void OnEnable()
         {
@@ -190,6 +143,7 @@ namespace CCC.Fix2D.Authoring.Editor
             _propColliderOffset = serializedObject.FindProperty(nameof(PhysicsBodyAuth.BoxAndCircleOffset));
             _propCircleRadius = serializedObject.FindProperty(nameof(PhysicsBodyAuth.CircleRadius));
             _propPolygonPoints = serializedObject.FindProperty(nameof(PhysicsBodyAuth.PolygonPoints));
+            _freezeRotation = serializedObject.FindProperty(nameof(PhysicsBodyAuth.FreezeRotation));
         }
 
         public override void OnInspectorGUI()
@@ -210,6 +164,7 @@ namespace CCC.Fix2D.Authoring.Editor
                 PropertyField("Drag", _propLinearDrag);
                 PropertyField("Rotation Drag", _propAngularDrag);
                 PropertyField(_propGravityScale);
+                PropertyField("Freeze Rotation", _freezeRotation);
             }
 
             EditorGUILayout.Space();

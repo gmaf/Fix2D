@@ -175,11 +175,11 @@ namespace CCC.Fix2D
                     float3 frictionAngVelB = math.float3(0, 0, tempVelocityB.AngularVelocity);
                     if (enableFrictionVelocitiesHeuristic)
                     {
-                        GetFrictionVelocities(new float3(motionStabilizationSolverInputA.InputVelocity.Linear, 0), motionStabilizationSolverInputA.InputVelocity.Angular,
+                        GetFrictionVelocities(new float3(motionStabilizationSolverInputA.InputVelocity.LinearFloat, 0), motionStabilizationSolverInputA.InputVelocity.AngularFloat,
                             new float3(tempVelocityA.LinearVelocity, 0), tempVelocityA.AngularVelocity,
                             math.rcp(tempVelocityA.InverseInertia), math.rcp(tempVelocityA.InverseMass),
                             out frictionLinVelA, out frictionAngVelA);
-                        GetFrictionVelocities(new float3(motionStabilizationSolverInputB.InputVelocity.Linear, 0), motionStabilizationSolverInputB.InputVelocity.Angular,
+                        GetFrictionVelocities(new float3(motionStabilizationSolverInputB.InputVelocity.LinearFloat, 0), motionStabilizationSolverInputB.InputVelocity.AngularFloat,
                             new float3(tempVelocityB.LinearVelocity, 0), tempVelocityB.AngularVelocity,
                             math.rcp(tempVelocityB.InverseInertia), math.rcp(tempVelocityB.InverseMass),
                             out frictionLinVelB, out frictionAngVelB);

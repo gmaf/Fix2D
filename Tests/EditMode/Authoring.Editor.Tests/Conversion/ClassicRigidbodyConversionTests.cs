@@ -70,8 +70,8 @@ class ClassicRigidbodyConversionTests : AuthoringTestFixture
                     Assert.IsTrue(HasComponent<PhysicsVelocity>(entity));
                     var velocity = GetComponentData<PhysicsVelocity>(entity);
 
-                    PhysicsAssert.AreEqual(expectedLinearVelocity, velocity.Linear, Epsilon);
-                    Assert.AreEqual(expectedAngularVelocity, velocity.Angular, Epsilon);
+                    PhysicsAssert.AreEqual(expectedLinearVelocity, velocity.LinearFloat, Epsilon);
+                    Assert.AreEqual(expectedAngularVelocity, velocity.AngularFloat, Epsilon);
                 }
 
                 // Damping.
@@ -157,8 +157,8 @@ class ClassicRigidbodyConversionTests : AuthoringTestFixture
                     Assert.IsTrue(HasComponent<PhysicsVelocity>(entity));
                     var velocity = GetComponentData<PhysicsVelocity>(entity);
 
-                    PhysicsAssert.AreEqual(expectedLinearVelocity, velocity.Linear, Epsilon);
-                    Assert.AreEqual(expectedAngularVelocity, velocity.Angular, Epsilon);
+                    PhysicsAssert.AreEqual(expectedLinearVelocity, velocity.LinearFloat, Epsilon);
+                    Assert.AreEqual(expectedAngularVelocity, velocity.AngularFloat, Epsilon);
                 }
             }
         }

@@ -6,6 +6,7 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine;
 
 namespace CCC.Fix2D
 {
@@ -147,6 +148,7 @@ namespace CCC.Fix2D
 
         protected override void OnUpdate()
         {
+            //Debug.Log("Run : " + this);
             // Make sure last frame's physics jobs are complete
             m_EndFramePhysicsSystem.FinalJobHandle.Complete();
 
@@ -495,8 +497,8 @@ namespace CCC.Fix2D
 
                     BodyMotionVelocity[physicsBodyIndex] = new PhysicsBody.MotionVelocity
                     {
-                        LinearVelocity = velocity.Linear,
-                        AngularVelocity = velocity.Angular,
+                        LinearVelocity = velocity.LinearFloat,
+                        AngularVelocity = velocity.AngularFloat,
                         GravityFactor = gravityScale,
 
                         InverseMass = mass.InverseMass,

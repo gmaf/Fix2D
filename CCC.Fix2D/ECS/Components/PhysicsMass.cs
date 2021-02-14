@@ -5,7 +5,6 @@ namespace CCC.Fix2D
 {
     // The mass properties of a physics body.
     // If not present, then the physics body has infinite mass and inertia.
-    [GenerateAuthoringComponent]
     public struct PhysicsMass : IComponentData
     {
         // Inverse mass. Zero indicates infinite mass.
@@ -30,7 +29,6 @@ namespace CCC.Fix2D
             
             SafetyChecks.ThrowArgumentException("Cannot specify less than zero or Infinite/NaN.", "mass");
             return default;
-
         }
 
         // Create a Kinematic body.

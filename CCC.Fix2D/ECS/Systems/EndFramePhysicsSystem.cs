@@ -1,6 +1,7 @@
 ﻿using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
+using UnityEngine;
 
 namespace CCC.Fix2D
 {
@@ -8,6 +9,7 @@ namespace CCC.Fix2D
     [UpdateAfter(typeof(PhysicsWorldSystem))]
     [UpdateAfter(typeof(StepPhysicsWorldSystem))]
     [UpdateAfter(typeof(ExportPhysicsWorldSystem))]
+    [AlwaysUpdateSystem]
     public class EndFramePhysicsSystem : SystemBase
     {
         public NativeList<JobHandle> HandlesToWaitFor;
@@ -41,8 +43,9 @@ namespace CCC.Fix2D
 
         protected override void OnUpdate()
         {
+            //Debug.Log("Run : " + this);
             m_PhysicsWorldSystem.Callbacks.Clear();
-            
+
             Dependency = FinalJobHandle = JobHandle.CombineDependencies(CombineDependencies(), Dependency);
         }
 

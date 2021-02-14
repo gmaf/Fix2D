@@ -1,4 +1,5 @@
 ﻿using Unity.Entities;
+using UnityEngine;
 
 namespace CCC.Fix2D
 {
@@ -10,18 +11,19 @@ namespace CCC.Fix2D
     {
         protected override void OnUpdate()
         {
+            //Debug.Log("Run " + this);
             Entities
                 .WithNone<PhysicsColliderBlob>()
                 .WithStructuralChanges()
                 .ForEach((Entity entity, ref PhysicsColliderBlobOwner colliderBlobOwner) =>
                 {
-                    //var colliderBlob = colliderBlobOwner.Collider;
-                    //if (colliderBlob.IsCreated)
-                    //{
-                    //    colliderBlob.Dispose();
-                    //}
+                    var colliderBlob = colliderBlobOwner.Collider;
+                    if (colliderBlob.IsCreated)
+                    {
+                        colliderBlob.Dispose();
+                    }
 
-                    //EntityManager.RemoveComponent<PhysicsColliderBlobOwner>(entity);
+                    EntityManager.RemoveComponent<PhysicsColliderBlobOwner>(entity);
                     
                 }).Run();
         }

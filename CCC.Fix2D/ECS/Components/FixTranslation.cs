@@ -2,12 +2,20 @@
 using System.Diagnostics;
 using Unity.Entities;
 
-[Serializable]
-[DebuggerDisplay("{Value}")]
-public struct FixTranslation : IComponentData
+namespace CCC.Fix2D
 {
-    public fix2 Value;
+    [Serializable]
+    [DebuggerDisplay("{Value}")]
+    public struct FixTranslation : IComponentData
+    {
+        public fix2 Value;
 
-    public static implicit operator fix2(FixTranslation val) => val.Value;
-    public static implicit operator FixTranslation(fix2 val) => new FixTranslation() { Value = val };
+        public FixTranslation(fix2 value)
+        {
+            Value = value;
+        }
+
+        public static implicit operator fix2(FixTranslation val) => val.Value;
+        public static implicit operator FixTranslation(fix2 val) => new FixTranslation() { Value = val };
+    }
 }

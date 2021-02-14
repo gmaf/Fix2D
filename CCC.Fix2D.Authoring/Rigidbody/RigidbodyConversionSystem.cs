@@ -38,8 +38,8 @@ namespace CCC.Fix2D.Authoring
                         DstEntityManager.AddComponentData(entity,
                             new PhysicsVelocity
                             {
-                                Linear = rigidbody.velocity,
-                                Angular = rigidbody.angularVelocity
+                                LinearFloat = rigidbody.velocity,
+                                AngularFloat = rigidbody.angularVelocity
                             });
                     }
 
@@ -69,7 +69,7 @@ namespace CCC.Fix2D.Authoring
                                     Linear = rigidbody.drag,
                                     Angular = rigidbody.angularDrag
                                 });
-                    }             
+                    }
                     // Kinematic.
                     else
                     {
@@ -115,6 +115,11 @@ namespace CCC.Fix2D.Authoring
                         var materialAuth = rigidbody.Material;
                         float colliderArea = rigidbody.CalculateColliderArea();
                         float massDensity = materialAuth != null ? materialAuth.MassDensity : 1f;
+
+                        if (rigidbody.FreezeRotation)
+                        {
+                            massProperties.MassDistribution.InertiaTensor = 0;
+                        }
 
                         DstEntityManager.AddOrSetComponent(entity,
                             PhysicsMass.CreateDynamic(massProperties, mass: massDensity * colliderArea));

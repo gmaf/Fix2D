@@ -17,15 +17,16 @@ namespace CCC.Fix2D
         }
 
         // Apply a linear impulse to the center of mass.
-        public static void ApplyLinearImpulse(ref this PhysicsVelocity physicsVelocity, PhysicsMass physicsMass, float2 impulse)
+        public static void ApplyLinearImpulse(ref this PhysicsVelocity physicsVelocity, PhysicsMass physicsMass, float2 impulseF)
         {
-            physicsVelocity.Linear += impulse * physicsMass.InverseMass;
+            fix2 impulse = new fix2((fix)impulseF.x, (fix)impulseF.y);
+            physicsVelocity.Linear += impulse * (fix)physicsMass.InverseMass;
         }
 
         // Apply an angular impulse.
         public static void ApplyAngularImpulse(ref this PhysicsVelocity physicsVelocity, PhysicsMass physicsMass, float impulse)
         {
-            physicsVelocity.Angular += impulse * physicsMass.InverseInertia;
+            physicsVelocity.Angular += (fix)impulse * (fix)physicsMass.InverseInertia;
         }
     }
 }

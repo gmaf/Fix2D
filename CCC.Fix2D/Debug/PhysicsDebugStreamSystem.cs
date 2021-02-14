@@ -391,11 +391,6 @@ namespace CCC.Fix2D.Debugging
         {
             private static PhysicsDrawComponent s_instance;
 
-            private void Awake()
-            {
-                name = "Fix2D Debug Drawer";
-            }
-
             public static void UpdateInstance()
             {
                 var mainCamera = Camera.main;

@@ -233,9 +233,9 @@ namespace CCC.Fix2D
                     // Get minimum time of impact
                     {
                         float2 pointVelA = GetPointVelocity(motionDataA.WorldPosition,
-                            inputVelocityA.Linear, inputVelocityA.Angular, cp.Position + Normal * cp.Distance);
+                            inputVelocityA.LinearFloat, inputVelocityA.AngularFloat, cp.Position + Normal * cp.Distance);
                         float2 pointVelB = GetPointVelocity(motionDataB.WorldPosition,
-                            inputVelocityB.Linear, inputVelocityB.Angular, cp.Position);
+                            inputVelocityB.LinearFloat, inputVelocityB.AngularFloat, cp.Position);
                         float projRelVel = math.dot(pointVelB - pointVelA, Normal);
                         if (projRelVel > 0.0f)
                         {
@@ -267,8 +267,8 @@ namespace CCC.Fix2D
                     // Estimate new position
                     var cp = narrowPhaseContactPoints[i];
                     {
-                        float2 pointVelA = GetPointVelocity(motionDataA.WorldPosition, inputVelocityA.Linear, inputVelocityA.Angular, cp.Position + Normal * cp.Distance);
-                        float2 pointVelB = GetPointVelocity(motionDataB.WorldPosition, inputVelocityB.Linear, inputVelocityB.Angular, cp.Position);
+                        float2 pointVelA = GetPointVelocity(motionDataA.WorldPosition, inputVelocityA.LinearFloat, inputVelocityA.AngularFloat, cp.Position + Normal * cp.Distance);
+                        float2 pointVelB = GetPointVelocity(motionDataB.WorldPosition, inputVelocityB.LinearFloat, inputVelocityB.AngularFloat, cp.Position);
                         float2 relVel = pointVelB - pointVelA;
                         float projRelVel = math.dot(relVel, Normal);
 

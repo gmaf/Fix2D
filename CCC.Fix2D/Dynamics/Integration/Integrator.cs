@@ -2,6 +2,7 @@
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
+using UnityEngine;
 
 namespace CCC.Fix2D
 {
@@ -43,7 +44,7 @@ namespace CCC.Fix2D
                 // Orientation.
                 motionData.WorldPosition += motionVelocity.LinearVelocity * timestep;
                 motionData.WorldAngle += motionVelocity.AngularVelocity * timestep;
-                
+
                 // Damping.
                 motionVelocity.LinearVelocity *= math.clamp(1.0f - motionData.LinearDamping * timestep, 0.0f, 1.0f);
                 motionVelocity.AngularVelocity *= math.clamp(1.0f - motionData.AngularDamping * timestep, 0.0f, 1.0f);

@@ -1,10 +1,12 @@
 ﻿using Unity.Entities;
 using Unity.Jobs;
+using UnityEngine;
 
 namespace CCC.Fix2D
 {
     [UpdateInGroup(typeof(PhysicsSystemGroup))]
     [UpdateAfter(typeof(PhysicsWorldSystem)), UpdateBefore(typeof(ExportPhysicsWorldSystem))]
+    [AlwaysUpdateSystem]
     public class StepPhysicsWorldSystem : SystemBase
     {
         // The simulation implementation
@@ -67,6 +69,7 @@ namespace CCC.Fix2D
         
         protected override void OnUpdate()
         {
+            //Debug.Log("Run : " + this);
             ref var physicsWorld = ref m_PhysicsWorldSystem.PhysicsWorld;
             var physicsCallbacks = m_PhysicsWorldSystem.Callbacks;
             

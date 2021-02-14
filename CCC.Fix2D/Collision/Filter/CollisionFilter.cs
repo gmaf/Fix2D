@@ -66,6 +66,16 @@ namespace CCC.Fix2D
             };
         }
 
+        public static CollisionFilter FromLayer(int layer)
+        {
+            var collisionMask = UnityEngine.Physics2D.GetLayerCollisionMask(layer);
+            return new CollisionFilter
+            {
+                BelongsTo = (uint)(1 << layer),
+                CollidesWith = (uint)collisionMask
+            };
+        }
+
         // Create a mask given a selection of layers.
         public static uint CreateMask(params int[] collisionLayers)
         {

@@ -92,7 +92,14 @@ namespace CCC.Fix2D.Debugging
 
                     if (colliderBlob.IsCreated)
                     {
-                        var worldTransform = new PhysicsTransform(Translations[physicsBody.Entity].Value, Rotations[physicsBody.Entity].Value);
+                        fix rotation = 0;
+
+                        if (Rotations.HasComponent(physicsBody.Entity))
+                        {
+                            rotation = Rotations[physicsBody.Entity].Value;
+                        }
+
+                        var worldTransform = new PhysicsTransform(Translations[physicsBody.Entity].Value, rotation);
                         DrawConvex(colliderBlob.GetColliderPtr(), ref worldTransform, ref OutputStream, ColliderColor);
 
                     }
