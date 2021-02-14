@@ -56,7 +56,7 @@ namespace CCC.Fix2D.Authoring
                     if (bodyType == UnityEngine.RigidbodyType2D.Dynamic)
                     {
                         DstEntityManager.AddOrSetComponent(entity,
-                            PhysicsMass.CreateDynamic(massProperties, rigidbody.mass));
+                            PhysicsMass.CreateDynamic(massProperties, rigidbody.mass, freezeRotation: false));
 
                         if (!DstEntityManager.HasComponent<PhysicsGravity>(entity))
                             DstEntityManager.AddComponentData(entity,
@@ -116,13 +116,8 @@ namespace CCC.Fix2D.Authoring
                         float colliderArea = rigidbody.CalculateColliderArea();
                         float massDensity = materialAuth != null ? materialAuth.MassDensity : 1f;
 
-                        if (rigidbody.FreezeRotation)
-                        {
-                            massProperties.MassDistribution.InertiaTensor = 0;
-                        }
-
                         DstEntityManager.AddOrSetComponent(entity,
-                            PhysicsMass.CreateDynamic(massProperties, mass: massDensity * colliderArea));
+                            PhysicsMass.CreateDynamic(massProperties, mass: massDensity * colliderArea, rigidbody.FreezeRotation));
 
                         if (!DstEntityManager.HasComponent<PhysicsGravity>(entity))
                             DstEntityManager.AddComponentData(entity,

@@ -17,13 +17,13 @@ namespace CCC.Fix2D
         public float2 LocalCenterOfMass;
 
         // Create a Dynamic body with the specified mass.
-        public static PhysicsMass CreateDynamic(MassProperties massProperties, float mass)
+        public static PhysicsMass CreateDynamic(MassProperties massProperties, float mass, bool freezeRotation)
         {
             if (!(mass <= 0f) && math.isfinite(mass))
                 return new PhysicsMass
                 {
                     InverseMass = math.rcp(mass),
-                    InverseInertia = math.rcp(massProperties.MassDistribution.InertiaTensor * (mass / massProperties.Area)),
+                    InverseInertia = freezeRotation ? 0 : math.rcp(massProperties.MassDistribution.InertiaTensor * (mass / massProperties.Area)),
                     LocalCenterOfMass = massProperties.MassDistribution.LocalCenterOfMass,
                 };
             
