@@ -155,7 +155,7 @@ namespace CCC.Fix2D.Authoring.Editor
             PropertyField(_propIsTrigger);
             
             if (!_propIsTrigger.boolValue)
-                PropertyField(_propFireEvents);
+                PropertyField("Collision Events", _propFireEvents);
 
             PhysicsBodyAuth.BodyType bodyType = (PhysicsBodyAuth.BodyType)_propType.enumValueIndex;
 
