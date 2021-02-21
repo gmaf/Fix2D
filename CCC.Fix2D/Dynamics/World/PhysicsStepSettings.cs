@@ -27,6 +27,8 @@ namespace CCC.Fix2D
         // World gravity.
         public float2 Gravity;
 
+        public fix2 GravityFix => (fix2)Gravity;
+
         public float TimeStep;
 
         // The number of available threads.

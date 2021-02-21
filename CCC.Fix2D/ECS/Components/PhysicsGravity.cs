@@ -7,5 +7,6 @@ namespace CCC.Fix2D
     public struct PhysicsGravity : IComponentData
     {
         public float Scale;
+        public fix ScaleFix => (fix)Scale;
     }
 }
