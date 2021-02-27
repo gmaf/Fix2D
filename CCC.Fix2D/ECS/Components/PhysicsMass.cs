@@ -27,7 +27,7 @@ namespace CCC.Fix2D
                     LocalCenterOfMass = massProperties.MassDistribution.LocalCenterOfMass,
                 };
             
-            SafetyChecks.ThrowArgumentException("Cannot specify less than zero or Infinite/NaN.", "mass");
+            SafetyChecks.ThrowArgumentException("mass", "Cannot specify less than zero or Infinite/NaN.");
             return default;
         }
 
@@ -36,7 +36,7 @@ namespace CCC.Fix2D
         {
             if (math.any(!math.isfinite(massProperties.MassDistribution.LocalCenterOfMass)))
             {
-                SafetyChecks.ThrowArgumentException("Cannot specify less than zero or Infinite/NaN.", "localCenterOfMass");
+                SafetyChecks.ThrowArgumentException("localCenterOfMass", "Cannot specify less than zero or Infinite/NaN.");
             }
 
             return new PhysicsMass

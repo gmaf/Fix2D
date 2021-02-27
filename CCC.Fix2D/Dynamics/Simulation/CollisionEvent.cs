@@ -62,6 +62,8 @@ namespace CCC.Fix2D
                     return pos / EstimatedContactPointPositions.Length;
                 }
             }
+
+            public fix2 AverageContactPointPositionFix => (fix2)AverageContactPointPosition;
         }
     }
 

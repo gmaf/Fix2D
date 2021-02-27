@@ -27,7 +27,7 @@ namespace CCC.Fix2D
         // World gravity.
         public float2 Gravity;
 
-        public fix2 GravityFix => (fix2)Gravity;
+        public fix2 GravityFix { get => (fix2)Gravity; set => Gravity = (float2)value; }
 
         public float TimeStep;
 
