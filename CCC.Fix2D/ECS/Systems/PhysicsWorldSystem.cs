@@ -16,6 +16,7 @@ namespace CCC.Fix2D
     public class PhysicsWorldSystem : SystemBase
     {
         public PhysicsWorld PhysicsWorld;
+        public bool PhysicsWorldFullyUpdated;
 
         public JobHandle FinalJobHandle { get; private set; }
 
