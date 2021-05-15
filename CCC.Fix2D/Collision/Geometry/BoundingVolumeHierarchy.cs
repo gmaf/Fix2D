@@ -433,7 +433,6 @@ namespace CCC.Fix2D
                         var index = compressedValues[i];
                         if (!(input.Ignore.IgnoreBody && input.Ignore.IgnoreBodyIndex == index))
                         {
-                            UnityEngine.Debug.Log($"AABB({input.Aabb.Center}) overlaps {index}");
                             processor.AabbLeaf(input, index, ref collector);
                         }
                     }
