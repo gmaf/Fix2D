@@ -8,6 +8,8 @@ namespace CCC.Fix2D
     [DebuggerDisplay("{Value}")]
     public struct FixTranslation : IComponentData
     {
+        public const int BYTE_SIZE = 2 * 8;
+
         public fix2 Value;
 
         public FixTranslation(fix2 value)
