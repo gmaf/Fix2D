@@ -8,6 +8,8 @@ namespace CCC.Fix2D
     {
         // This collider blob is allowed to be effectively null.
         public BlobAssetReference<Collider> Collider;
+     
+        public const int TYPE_SIZE = 8;
     }
 
     // This component indicates that this entity owns the referenced collider blob.
