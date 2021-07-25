@@ -76,6 +76,11 @@ namespace CCC.Fix2D
             };
         }
 
+        public static CollisionFilter FromLayers(int layerA, int layerB)
+        {
+            return CreateUnion(FromLayer(layerA), FromLayer(layerB));
+        }
+
         // Create a mask given a selection of layers.
         public static uint CreateMask(params int[] collisionLayers)
         {

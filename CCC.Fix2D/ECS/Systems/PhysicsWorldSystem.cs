@@ -18,6 +18,16 @@ namespace CCC.Fix2D
         public PhysicsWorld PhysicsWorld;
         public bool PhysicsWorldFullyUpdated;
 
+        public ref PhysicsWorld PhysicsWorldSafe
+        {
+            get
+            {
+                if (!PhysicsWorldFullyUpdated)
+                    throw new Exception("Physics world not updated, make sure your system updates after PhysicsWorldSystem.");
+                return ref PhysicsWorld;
+            }
+        }
+
         public JobHandle FinalJobHandle { get; private set; }
 
         public EntityQuery StaticEntityGroup { get; private set; }
