@@ -42,7 +42,7 @@ namespace CCC.Fix2D
             // Ensure the input dependencies include the end-of-simulation job, so events will have been generated
             inputDeps = JobHandle.CombineDependencies(inputDeps, simulation.FinalSimulationJobHandle);
 
-            var parameters = new JobsUtility.JobScheduleParameters(UnsafeUtility.AddressOf(ref data), CollisionEventJobProcess<T>.Initialize(), inputDeps, ScheduleMode.Batched);
+            var parameters = new JobsUtility.JobScheduleParameters(UnsafeUtility.AddressOf(ref data), CollisionEventJobProcess<T>.Initialize(), inputDeps, ScheduleMode.Parallel);
             return JobsUtility.Schedule(ref parameters);
         }
 
@@ -61,7 +61,7 @@ namespace CCC.Fix2D
                 if (jobReflectionData == IntPtr.Zero)
                 {
                     jobReflectionData = JobsUtility.CreateJobReflectionData(typeof(CollisionEventJobData<T>),
-                        typeof(T), JobType.Single, (ExecuteJobFunction)Execute);
+                        typeof(T), (ExecuteJobFunction)Execute);
                 }
                 return jobReflectionData;
             }
